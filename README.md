@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AthleteOS
 
-## Getting Started
+AI-powered career transition platform for NCAA, professional, and former athletes.
 
-First, run the development server:
+Live Demo:
+https://athleteos-seven.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+AthleteOS helps athletes translate sports experience into business-ready career positioning.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The platform demonstrates how AI can assist athletes with:
+- Career path recommendations
+- Resume bullet translation
+- Job-fit scoring
+- LinkedIn outreach generation
+- Transition planning into AI, finance, operations, coaching, sales, and remote work
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Built for NCAA, professional, international, and former athletes navigating career transitions.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Career Path Recommender
+Maps athlete traits and habits into realistic business and AI career paths.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Resume Bullet Translator
+Converts sports language into professional business-ready resume bullets.
 
-## Deploy on Vercel
+### Job-Fit Scorer
+Analyzes transferable athlete skills for modern business and AI roles.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### LinkedIn Outreach Generator
+Creates networking outreach messages tailored to career transitions.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Tech Stack
+
+- Next.js
+- React
+- Tailwind CSS
+- TypeScript
+- Vercel
+
+---
+
+## Founder
+
+Built by Artsiom Barshchou
+
+- Professional hockey player
+- MBA in Finance
+- AI evaluator and workflow specialist
+
+LinkedIn:
+https://www.linkedin.com/in/artsiom-barshchou-0402b8337
+
+GitHub:
+https://github.com/aborshyov
+
+---
+
+## Vision
+
+AthleteOS was built to demonstrate how AI tools can support athlete career development and professional transition planning.
+
+This project was created as part of the OpenAI x Handshake Codex Builder Challenge.

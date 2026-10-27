@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { generateBusinessBullet, translatedBullets, translatorExamples } from "./resume-bullet";
 import {
   Activity,
   ArrowRight,
@@ -141,27 +142,6 @@ const careerPaths = [
   },
 ];
 
-const translatedBullets = [
-  {
-    from: "Assistant captain for a Division I hockey program.",
-    to: "Led peer accountability and communication for a 28-person high-performance team, aligning daily preparation, feedback loops, and performance standards in a pressure-driven environment.",
-  },
-  {
-    from: "Studied opponents and adjusted game plans.",
-    to: "Converted competitive intelligence into tactical recommendations using pattern recognition, video review, and performance metrics to improve execution quality.",
-  },
-  {
-    from: "Balanced travel, training, school, and recovery.",
-    to: "Managed a demanding operating cadence across competing priorities while maintaining consistent preparation, resilience, and measurable performance standards.",
-  },
-];
-
-const translatorExamples = [
-  "Led offseason training sessions for younger teammates.",
-  "Studied opponent power plays and shared adjustments with coaches.",
-  "Balanced travel, practice, recovery, and finance coursework.",
-];
-
 const athleteBusinessTraits = [
   {
     title: "Leadership",
@@ -201,37 +181,6 @@ const athleteBusinessTraits = [
 ];
 
 const fitStrengthBank = ["Leadership", "Coachability", "Operating rhythm", "Client presence", "Pressure management", "Cross-functional teamwork"];
-
-function generateBusinessBullet(input: string) {
-  const cleanInput = input.trim().replace(/\s+/g, " ");
-  const normalizedInput = cleanInput.toLowerCase();
-
-  if (!cleanInput) {
-    return "Led high-performance team execution by translating athletic discipline, preparation habits, and pressure-tested communication into measurable operating outcomes.";
-  }
-
-  if (normalizedInput.includes("captain") || normalizedInput.includes("lead") || normalizedInput.includes("mentor")) {
-    return `Led team accountability through ${cleanInput}, strengthening communication, role clarity, and performance standards across a high-pressure environment.`;
-  }
-
-  if (normalizedInput.includes("film") || normalizedInput.includes("opponent") || normalizedInput.includes("scout") || normalizedInput.includes("game plan")) {
-    return `Analyzed competitive patterns from ${cleanInput}, converting performance insights into tactical recommendations, decision support, and measurable execution improvements.`;
-  }
-
-  if (normalizedInput.includes("practice") || normalizedInput.includes("train") || normalizedInput.includes("workout") || normalizedInput.includes("development")) {
-    return `Managed a structured development cadence through ${cleanInput}, improving preparation quality, consistency, and long-term performance habits.`;
-  }
-
-  if (normalizedInput.includes("travel") || normalizedInput.includes("school") || normalizedInput.includes("balance") || normalizedInput.includes("coursework")) {
-    return `Coordinated competing priorities across ${cleanInput}, demonstrating time management, resilience, and reliable execution under demanding schedule pressure.`;
-  }
-
-  if (normalizedInput.includes("community") || normalizedInput.includes("fan") || normalizedInput.includes("sponsor")) {
-    return `Represented team values through ${cleanInput}, building stakeholder trust, communication quality, and a professional brand presence.`;
-  }
-
-  return `Translated experience in ${cleanInput} into business-ready strengths in execution, collaboration, adaptability, and performance under pressure.`;
-}
 
 function analyzeFit(jobTitle: string, skillsText: string) {
   const combined = `${jobTitle} ${skillsText}`.toLowerCase();
@@ -603,22 +552,18 @@ function CareerRecommender() {
 
 function ResumeTranslator() {
   const [sportsExperience, setSportsExperience] = useState(translatorExamples[0]);
-  const [generatedBullet, setGeneratedBullet] = useState(generateBusinessBullet(translatorExamples[0]));
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [result, setResult] = useState(() => generateBusinessBullet(translatorExamples[0]));
   const [copied, setCopied] = useState(false);
+  const generatedBullet = result.bullet;
 
   function handleGenerateBullet() {
-    setIsGenerating(true);
-    window.setTimeout(() => {
-      setGeneratedBullet(generateBusinessBullet(sportsExperience));
-      setIsGenerating(false);
-      setCopied(false);
-    }, 420);
+    setResult(generateBusinessBullet(sportsExperience));
+    setCopied(false);
   }
 
   function handleClear() {
     setSportsExperience("");
-    setGeneratedBullet("");
+    setResult({ bullet: "", feedback: "" });
     setCopied(false);
   }
 
@@ -633,7 +578,7 @@ function ResumeTranslator() {
     <Panel id="translator" icon={<Wand2 size={20} aria-hidden="true" />} title="Resume bullet translator" eyebrow="Local generator">
       <div className="space-y-4">
         <p className="text-base leading-7 text-[var(--color-muted-strong)]">
-          Paste a sports responsibility or accomplishment and translate it into professional business language.
+          Describe what you did and any results you can support. This tool cleans up the wording using only the details you provide.
         </p>
 
         <div className="flex flex-wrap gap-2">
@@ -643,7 +588,8 @@ function ResumeTranslator() {
               type="button"
               onClick={() => {
                 setSportsExperience(example);
-                setGeneratedBullet(generateBusinessBullet(example));
+                setResult(generateBusinessBullet(example));
+                setCopied(false);
               }}
               className="rounded-full border border-[var(--color-border)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--color-muted)] transition hover:-translate-y-0.5 hover:border-[var(--color-green)] hover:text-[var(--color-navy)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-green)]"
             >
@@ -660,7 +606,11 @@ function ResumeTranslator() {
             <textarea
               id="sports-experience"
               value={sportsExperience}
-              onChange={(event) => setSportsExperience(event.target.value)}
+              onChange={(event) => {
+                setSportsExperience(event.target.value);
+                setResult({ bullet: "", feedback: "" });
+                setCopied(false);
+              }}
               rows={6}
               className="mt-2 w-full resize-none rounded-md border border-[var(--color-border)] bg-white px-3 py-3 text-[0.95rem] leading-7 text-[var(--color-navy)] outline-none transition placeholder:text-slate-400 focus:border-[var(--color-green)] focus:ring-2 focus:ring-[var(--color-green)]/15"
               placeholder="Example: Led offseason training sessions for younger teammates"
@@ -669,12 +619,11 @@ function ResumeTranslator() {
               <button
                 type="button"
                 onClick={handleGenerateBullet}
-                disabled={isGenerating}
+                disabled={!sportsExperience.trim()}
                 className="btn-primary disabled:cursor-not-allowed disabled:opacity-70"
-                aria-busy={isGenerating}
               >
-                {isGenerating ? <RefreshCw className="animate-spin" size={16} aria-hidden="true" /> : <Sparkles size={16} aria-hidden="true" />}
-                {isGenerating ? "Generating" : "Generate bullet"}
+                <Sparkles size={16} aria-hidden="true" />
+                Generate bullet
               </button>
               <button type="button" onClick={handleClear} className="btn-secondary">
                 <Eraser size={16} aria-hidden="true" />
@@ -685,7 +634,7 @@ function ResumeTranslator() {
 
           <div className="flex min-h-[230px] flex-col rounded-md bg-[var(--color-navy)] p-4 text-white">
             <div className="mb-3 flex items-center justify-between gap-3">
-              <p className="text-xs font-semibold uppercase text-slate-200">Generated business-ready bullet</p>
+              <p className="text-xs font-semibold uppercase text-slate-200">Resume bullet draft</p>
               <button
                 type="button"
                 onClick={handleCopy}
@@ -697,7 +646,7 @@ function ResumeTranslator() {
               </button>
             </div>
             <p className="text-[0.95rem] leading-7 text-slate-100" aria-live="polite">
-              {generatedBullet || "Your generated resume bullet will appear here."}
+              {generatedBullet || result.feedback || "Your resume bullet draft will appear here."}
             </p>
           </div>
         </div>

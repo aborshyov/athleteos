@@ -3,7 +3,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "AthleteOS",
-  description: "AI career transition platform for athletes",
+  description:
+    "A guided resume builder for college athletes applying for internships and first jobs",
 };
 
 export default function RootLayout({

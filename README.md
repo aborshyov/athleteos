@@ -1,69 +1,57 @@
 # AthleteOS
 
-AI-powered career transition platform for NCAA, professional, and former athletes.
+A guided resume builder for college athletes applying for internships and first jobs.
 
-Live Demo:
-https://athleteos-seven.vercel.app/
+The current working version keeps the original AthleteOS page layout and guides the user through five steps:
 
-## Overview
+1. Choose a target role or start with a general resume.
+2. Describe personal contributions, with optional details and results.
+3. Compare editable bullet drafts with their source facts.
+4. Add education, skills, and multiple athletics, work, project, or volunteer entries.
+5. Review the complete resume and download Word or PDF.
 
-AthleteOS helps athletes translate sports experience into business-ready career positioning.
+## Factual wording
 
-The platform demonstrates how AI can assist athletes with:
-- Career path recommendations
-- Resume bullet translation
-- Job-fit scoring
-- LinkedIn outreach generation
-- Transition planning into AI, finance, operations, coaching, sales, and remote work
+Bullet generation is conservative local wording cleanup. There is no connected language model or automatic factual verification. Numbers, qualifiers, role boundaries, and team attribution must be preserved. Changing source facts clears the previous draft. Changing wording or experience details requires a new review. Export is blocked until included entries and the final resume have been reviewed.
 
-Built for NCAA, professional, international, and former athletes navigating career transitions.
+The form starts empty. The optional fictional example is labeled in the app and in exported documents. Fixed career match percentages, salary examples, keyword fit scoring, and template outreach are no longer part of the main workflow.
 
----
+## Draft storage and export
 
-## Features
+Resume text stays in the browser. Saving is explicit and stores one versioned draft in this browser's local storage, including contact details. Users can load or delete that saved copy. There are no accounts or cloud backups. A loaded draft always requires the final review again.
 
-### Career Path Recommender
-Maps athlete traits and habits into realistic business and AI career paths.
+Word and PDF documents are generated locally in the browser. Export libraries and PDF fonts load only when a download is requested. A print view is also available. Users should review the exported document, including page breaks, before applying.
 
-### Resume Bullet Translator
-Converts sports language into professional business-ready resume bullets.
+## Local development
 
-### Job-Fit Scorer
-Analyzes transferable athlete skills for modern business and AI roles.
+Use Node.js 22.18 or newer (Node.js 24 recommended).
 
-### LinkedIn Outreach Generator
-Creates networking outreach messages tailored to career transitions.
+```sh
+npm ci
+npm run dev
+```
 
----
+Open http://localhost:3000/#translator.
 
-## Tech Stack
+## Checks
 
-- Next.js
-- React
-- Tailwind CSS
-- TypeScript
-- Vercel
+```sh
+npm test
+npm run lint
+npm run build
+```
 
----
+For a local production review:
 
-## Founder
+```sh
+npm run build
+npm run start -- --hostname 127.0.0.1 --port 3000
+```
 
-Built by Artsiom Barshchou
+## Project
 
-- Professional hockey player
-- MBA in Finance
-- AI evaluator and workflow specialist
+- Repository: https://github.com/aborshyov/athleteos
+- Published site: https://athleteos-seven.vercel.app/
+- Built by Artsiom Barshchou for the OpenAI x Handshake Codex Creator Challenge.
 
-LinkedIn:
-https://www.linkedin.com/in/artsiom-barshchou-0402b8337
-
-GitHub:
-https://github.com/aborshyov
-
----
-
-## Vision
-
-AthleteOS was built to demonstrate how AI tools can support athlete career development and professional transition planning.
-
-This project was created as part of the OpenAI x Handshake Codex Builder Challenge.
+Local changes are reviewed before publishing, so the published site may differ from this working version.

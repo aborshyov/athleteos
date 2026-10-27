@@ -6,7 +6,7 @@ export type ResumeBulletResult = {
 const listMarker = /^(?:[-*•]\s+|\d+[.)]\s+)/;
 const roleFragment = /^(?:assistant captain|alternate captain|team captain|captain)(?=\s+(?:for|of|on)\b|[.!?]?$)/i;
 const pastRole = /^I was (?:the |an? )?((?:assistant captain|alternate captain|team captain|captain)(?=\s+(?:for|of|on)\b|[.!?]?$))/i;
-const firstPersonAction = /^I\s+(?=(?:led|lead|helped|help|organized|organize|managed|manage|coordinated|coordinate|studied|study|reviewed|review|analyzed|analyze|trained|train|coached|coach|mentored|mentor|supported|support|balanced|balance|planned|plan|prepared|prepare|tracked|track|shared|share|created|create|built|build|developed|develop|worked|work|played|play|served|serve|assisted|assist|volunteered|volunteer|raised|raise|scheduled|schedule|communicated|communicate)\b)/i;
+const firstPersonAction = /^I\s+(?=(?:led|lead|helped|help|organized|organize|managed|manage|coordinated|coordinate|studied|study|reviewed|review|analyzed|analyze|trained|train|coached|coach|mentored|mentor|supported|support|balanced|balance|planned|plan|prepared|prepare|tracked|track|shared|share|created|create|built|build|developed|develop|worked|work|played|play|served|serve|assisted|assist|volunteered|volunteer|raised|raise|scheduled|schedule|communicated|communicate|sent|send|checked|check|compared|compare)\b)/i;
 
 function cleanSentence(input: string): string {
   let sentence = input.replace(listMarker, "").trim().replace(/\s+/g, " ");
